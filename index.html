@@ -185,7 +185,7 @@
                 <li><a href="#getting-started">Getting Started</a></li>
                 <li><a href="#environment">Environment Config</a></li>
                 <li><a href="#deployment">Deployment Flow</a></li>
-                <li><a href="#build-process">Build Process</a></li>
+                <li><a href="#build-process">Dashboard</a></li>
                 <li><a href="#verification">Verification</a></li>
                 <li><a href="#attestation">Attestation</a></li>
                 <li><a href="#monitoring">Monitoring</a></li>
@@ -252,60 +252,66 @@ runtime:
             <h2>3. Deployment Flow</h2>
 
             <div class="tutorial-content">
-                <h3>One-Click Deploy</h3>
                 <p>
-                    Once your environment is configured, deploying is as simple as clicking the "Deploy" button.
-                    Before deployment, you'll see a summary of your configuration and can toggle attestation levels.
+                    Once your environment is configured, deploying is a straightforward process.
+                    Before deployment, you'll see a summary of your configuration and with one click, you can kick off
+                    the deployment process.
                 </p>
 
                 <img src="images/deploy.png" alt="Deployment Interface" class="tutorial-image">
 
+                <h3>Reproducible Builds & Hash Generation</h3>
+                <p>
+                    Lunal uses reproducible build pipelines to ensure that the same input code always produces
+                    the same output artifacts. Our build process locks in your dependencies, kernel version, compiler
+                    toolchain,
+                    and build environment to guarantee complete reproducibility.
+                </p>
+
+                <p>
+                    During the build process, cryptographic hashes are generated for your code and all dependencies.
+                    These hashes form a verifiable supply chain that ensures the integrity of your application.
+                    Reproducibility is broken if any dependency changes, if build parameters are modified, or if the
+                    source code is altered in any way - providing strong guarantees that what's running is exactly what
+                    you intended.
+                </p>
+
                 <h3>Deployment Confirmation</h3>
                 <p>
-                    After successful deployment, you'll receive your deployment URL, attestation verification status,
-                    and performance metrics showing your application's startup time and memory usage.
+                    After successful deployment, you'll receive your deployment URL and attestation verification. Your
+                    URL will be the gateway to interact with your deployed application.
                 </p>
 
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
                     <pre>
-# Access your deployed application
-curl https://your-app-name.lunal.dev/health
+# Access your deployed application with a sample API call
+$ curl https://your-app-name.lunal.dev/api/hello
+{"message": "Hello from your secure Luna Lamp application!"}
 
-# Check attestation status
-lunal attestation status --app your-app-name</pre>
+# Check attestation status to verify your app is running in a trusted environment
+$ lunal attestation status --app your-app-name
+✅ Application "your-app-name" is running with valid attestation
+   Attestation Provider: Intel TDX
+   Last verified: 2 minutes ago</pre>
                 </div>
             </div>
         </section>
 
-        <section id="build-process" class="tutorial-section">
-            <h2>4. Build Process</h2>
+        <section id="dashboard" class="tutorial-section">
+            <h2>4. Dashboard</h2>
 
             <div class="tutorial-content">
-                <h3>Reproducible Builds</h3>
                 <p>
-                    Lunal uses reproducible build pipelines to ensure that the same input code always produces
-                    the same output artifacts. This is crucial for verifying that your deployed code matches what you
-                    intended.
+                    The Lunal dashboard provides a comprehensive view of all your deployed applications,
+                    their current status, and key metrics at a glance. Monitor deployment health, resource
+                    utilization, and access logs all from a single interface.
                 </p>
 
-                <img src="images/dashboard.png" alt="Build Process Visualization" class="tutorial-image">
+                <img src="images/dashboard.png" alt="Dashboard Overview" class="tutorial-image">
 
-                <h3>Hash Generation</h3>
-                <p>
-                    During the build process, cryptographic hashes are generated for your code and dependencies.
-                    These hashes are used later in the verification process to ensure code integrity.
-                </p>
 
-                <div class="code-block">
-                    <button class="copy-button">Copy</button>
-                    <pre>
-# Generate hash locally to verify against deployed version
-lunal build verify --path ./my-project --output hash.txt
 
-# Compare with deployed hash
-lunal verify --hash-file hash.txt --deployment your-app-name</pre>
-                </div>
             </div>
         </section>
 
