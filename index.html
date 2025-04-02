@@ -315,64 +315,154 @@ $ lunal attestation status --app your-app-name
             </div>
         </section>
 
-        <section id="verification" class="tutorial-section">
-            <h2>5. Local Build Verification & Signing</h2>
+        <section id="attestation-verification" class="tutorial-section">
+            <h2>5. Attestation and Verification</h2>
 
             <div class="tutorial-content">
+                <p>
+                    Lunal provides cryptographic proof that your code is running exactly as intended,
+                    in a genuine TEE environment, without tampering or observation. This process is referred to as
+                    "Attestation". We create a complete end-to-end verification flow that connects your original source
+                    code,
+                    your developer signature, the platform build hash, and the running application.
+                </p>
+
+
                 <h3>Developer Signing Process</h3>
                 <p>
                     For additional security, you can sign your code using your personal or organizational cryptographic
-                    keys.
-                    This creates a verifiable link between you as the developer and the deployed code.
+                    keys. This creates a verifiable link between you as the developer and the deployed code.
                 </p>
 
-                <img src="placeholder-signing.jpg" alt="Code Signing Process" class="tutorial-image">
+                <p>
+                    When you register with Lunal, you receive a unique public/private key pair that establishes your
+                    developer identity.
+                    The private key remains exclusively with you, while the public key is registered with the Lunal
+                    platform.
+                </p>
+
+                <p>
+                    <strong>Why signing is necessary:</strong> When your code is built and deployed to a TEE, it's
+                    critical to verify that
+                    the code running in production is exactly what you intended to deploy. By signing the hash of your
+                    application, you
+                    create a cryptographic guarantee that you've approved this specific version of the code. This
+                    prevents unauthorized
+                    modifications and establishes a clear chain of accountability.
+                </p>
+
+                <p>
+                    The signing process works as follows:
+                </p>
+                <ol>
+                    <li>Lunal generates a cryptographic hash of your application during the build process</li>
+                    <li>You receive this hash and independently verify it matches your expectations</li>
+                    <li>Using your private key, you sign this hash, creating a signature that only you could produce
+                    </li>
+                    <li>This signature is stored alongside your deployment and becomes part of the attestation record
+                    </li>
+                </ol>
+
+                <p>
+                    Now anyone with access to your public key can verify that you personally approved this specific
+                    version of the
+                    application, without needing access to your private key. This creates a strong guarantee that the
+                    code running in
+                    the TEE has your explicit approval.
+                </p>
 
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
                     <pre>
-# Sign your code's hash with your private key
-lunal sign --hash-file hash.txt --key ~/.ssh/id_rsa
+                # Sign your code's hash with your private key
+                lunal sign --hash-file hash.txt --key ~/.ssh/id_rsa
 
-# Upload the signature to Lunal
-lunal upload --signature hash.txt.sig --deployment your-app-name</pre>
+                # Upload the signature to Lunal
+                lunal upload --signature hash.txt.sig --deployment your-app-name</pre>
                 </div>
 
-                <h3>Verification Chain</h3>
+                <h3>Attestation Dashboard</h3>
                 <p>
-                    Lunal provides a complete end-to-end verification flow that connects your original source code,
-                    your developer signature, the platform build hash, and the running application.
+                    The attestation dashboard provides visibility into your deployment's security status, including:
                 </p>
-            </div>
-        </section>
-
-        <section id="attestation" class="tutorial-section">
-            <h2>6. Attestation Mechanics</h2>
-
-            <div class="tutorial-content">
-                <h3>What is Attestation?</h3>
-                <p>
-                    Attestation is the cryptographic proof that your code is running exactly as intended,
-                    in a genuine TEE environment, without tampering or observation.
-                </p>
+                <ul>
+                    <li>Build Hash verification</li>
+                    <li>Developer signatures</li>
+                    <li>Platform measurements showing the chain of trust</li>
+                </ul>
 
                 <img src="images/attestation.png" alt="Attestation Mechanics" class="tutorial-image">
 
+
                 <h3>Verification API</h3>
                 <p>
-                    Lunal provides a complete DCAP-based verification infrastructure that runs entirely
-                    within your environment for maximum security and control.
+                    Lunal provides a complete DCAP-based attestation infrastructure solution. This allows you to or
+                    anyone to attest and verify your deployments using your signature.
                 </p>
 
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
                     <pre>
-# Verify attestation via API
-curl https://verify.lunal.com/v1/attestations/{deployment-id}/verify
+        # Verify attestation via API
+        curl https://verify.lunal.com/v1/attestations/{deployment-id}/verify
 
-# Or use our CLI
-lunal attestation verify --deployment your-app-name</pre>
+        # Or use our CLI
+        lunal attestation verify --deployment your-app-name</pre>
                 </div>
+
+                <h4>Example API Response</h4>
+                <div class="code-block">
+                    <button class="copy-button">Copy</button>
+                    <pre>
+        {
+          "status": "verified",
+          "attestation": {
+            "id": "att_8f93jd82",
+            "timestamp": "2023-09-15T14:32:19Z",
+            "deployment_id": "your-app-name",
+            "build_hash": "sha256:7a9d2e4cdf81b7d240ae091df166164f6589a444c25ce98649c9452f9fcc1234",
+            "measurements": {
+              "mr_enclave": "9a6743fc25ed8c83f48d9d453b5ccf8b6239c41ebeda4c5518e5fe33beb89f23",
+              "mr_signer": "83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e"
+            },
+            "signature_verification": {
+              "developer_id": "dev_29fja92",
+              "signature_valid": true,
+              "key_id": "4f:23:98:71:e4:...:35:0a"
+            },
+            "platform_verification": {
+              "tcb_status": "up_to_date",
+              "qe_identity_status": "valid"
+            }
+          }
+        }</pre>
+                </div>
+
+                <h4>Example CLI Response</h4>
+                <div class="code-block">
+                    <button class="copy-button">Copy</button>
+                    <pre>
+        ✅ Attestation verification complete for deployment: your-app-name
+
+        Deployment ID:     your-app-name
+        Build Hash:        sha256:7a9d2e4cdf81b7d240ae091df166164f6589a444c25ce98649c9452f9fcc1234
+        Verification Time: 2023-09-15 14:32:19 UTC
+
+        TEE Measurements:
+          MR_ENCLAVE:      9a6743fc25ed8c83f48d9d453b5ccf8b6239c41ebeda4c5518e5fe33beb89f23
+          MR_SIGNER:       83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e
+
+        Developer Signature: VALID ✓
+          Developer:        John Doe (dev_29fja92)
+          Key Fingerprint:  4f:23:98:71:e4:...:35:0a
+
+        Platform Verification: SECURE ✓
+          TCB Status:       Up to date
+          QE Identity:      Valid
+
+        The deployment is running in a genuine TEE environment with verified code integrity.</pre>
+                </div>
+
             </div>
         </section>
 
