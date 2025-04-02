@@ -196,21 +196,16 @@
             <h2>1. Getting Started</h2>
 
             <div class="tutorial-content">
-                <h3>Repository Selection</h3>
                 <p>
-                    Lunal makes it easy to deploy your code securely in a Trusted Execution Environment.
-                    Start by selecting your source repository through our simple interface.
+                    Our goal is to make it as simple as possible to deploy your code securely in a Trusted Execution
+                    Environment.
+                    Start by selecting your source repository through a simple interface. You can either connect your
+                    GitHub and select a repository or upload your local codebase directly.
+
                 </p>
 
                 <img src="images/getting_started.png" alt="Repository Selection Interface" class="tutorial-image">
 
-                <p>
-                    You can either connect your GitHub repository or upload your local codebase directly.
-                    Our interface makes browsing and selecting repositories intuitive with filters for language,
-                    last updated time, or stars.
-                </p>
-
-                <h3>Project Configuration</h3>
                 <p>
                     After selecting your repository, configure your project with a name,
                     environment type (Development, Staging, or Production), and select the branch you wish to deploy.
@@ -219,22 +214,26 @@
         </section>
 
         <section id="environment" class="tutorial-section">
-            <h2>2. Environment Configuration</h2>
+            <h2>2. Project Configuration</h2>
 
             <div class="tutorial-content">
-                <h3>TEE Selection</h3>
+                <h3>Hardware Selection</h3>
                 <p>
-                    Select your Trusted Execution Environment hardware option. Currently, we support Intel TDX
-                    with various memory and CPU configurations to match your application needs.
+                    Select your Trusted Execution Environment hardware option. We offer multiple memory and CPU
+                    configurations to match your application needs.
                 </p>
 
                 <img src="images/config.png" alt="TEE Selection Interface" class="tutorial-image">
 
-                <h3>Runtime Configuration</h3>
+                <h3>Deployment Configuration</h3>
                 <p>
-                    Choose your runtime environment from our supported languages and frameworks.
-                    Lunal automatically detects frameworks in your repository to suggest the optimal configuration.
-                </p>
+                    Choose between two deployment approaches: runtime-specific or containerized via Docker.
+                    The runtime-specific approach is ideal for language-specific applications where you need
+                    fine-grained control over your environment and optimized performance.
+                    The containerized approach provides maximum portability and dependency isolation,
+                    perfect for complex applications with specific system requirements or legacy dependencies.
+                    Lunal automatically suggests the optimal configuration based on your repository contents. You can
+                    also explicitly define a runtime using a `lunal.config.yaml` file.
 
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
