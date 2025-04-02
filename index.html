@@ -183,12 +183,11 @@
         <nav class="tutorial-nav">
             <ul>
                 <li><a href="#getting-started">Getting Started</a></li>
-                <li><a href="#environment">Environment Config</a></li>
+                <li><a href="#environment">Project Configuration</a></li>
                 <li><a href="#deployment">Deployment Flow</a></li>
-                <li><a href="#build-process">Dashboard</a></li>
-                <li><a href="#verification">Verification</a></li>
-                <li><a href="#attestation">Attestation</a></li>
-                <li><a href="#monitoring">Monitoring</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#attestation-verification">Attestation and Verification</a></li>
+                <li><a href="#monitoring">Logging & Performance Monitoring</a></li>
             </ul>
         </nav>
 
@@ -473,7 +472,8 @@ $ lunal attestation status --app your-app-name
                 <h3>Logs Dashboard</h3>
                 <p>
                     Monitor your application through our centralized logging system with search
-                    and filter capabilities for quick debugging.
+                    and filter capabilities for quick debugging. Real-time log streaming helps
+                    you identify and resolve issues promptly.
                 </p>
 
                 <img src="images/logs.png" alt="Logs Dashboard" class="tutorial-image">
@@ -481,18 +481,29 @@ $ lunal attestation status --app your-app-name
                 <h3>Performance Metrics</h3>
                 <p>
                     Track your application's performance with real-time resource utilization graphs,
-                    response time metrics, and automatic anomaly detection.
+                    response time metrics, and automatic anomaly detection. Get insights into CPU,
+                    memory usage, network traffic, and other critical performance indicators.
                 </p>
 
-                <div class="code-block">
-                    <button class="copy-button">Copy</button>
-                    <pre>
-# Stream logs from your deployment
-lunal logs --follow --deployment your-app-name
+                <h3>Encrypted Monitoring</h3>
+                <p>
+                    For sensitive applications, our encrypted monitoring feature ensures maximum
+                    confidentiality of your application logs and performance data. All logs from
+                    within your deployed application can be encrypted using your public key.
+                </p>
+                <p>
+                    This end-to-end encryption means that only you, with your private key, can
+                    decrypt and view the monitoring data. Even our platform administrators cannot
+                    access your sensitive log information, providing you with unparalleled
+                    security guarantees for compliance and privacy requirements.
+                </p>
 
-# Get performance metrics
-lunal metrics --deployment your-app-name --last 30m</pre>
-                </div>
+                <h3>Alerting & Notifications</h3>
+                <p>
+                    Set up custom alerts based on log patterns or performance thresholds to receive
+                    instant notifications when your application requires attention. Integrate with
+                    your preferred notification channels including email, Slack, or SMS.
+                </p>
             </div>
         </section>
     </div>
