@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang='en'>
+
 <head>
     <title>Lunal - The Trusted Compute Company</title>
-    <meta name='description' content='The fastest way to deploy code in a Trusted Execution Environment (TEE) — with zero configuration, full verifiability, and automatic scaling.'>
+    <meta name='description'
+        content='The fastest way to deploy code in a Trusted Execution Environment (TEE) — with zero configuration, full verifiability, and automatic scaling.'>
 
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -16,19 +18,28 @@
             background-color: #202020;
             color: #f0f0f0;
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
         }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
         .logo {
             font-size: 8rem;
+            margin: 0;
         }
+
         .description {
             color: #efefef;
             font-size: 1.2rem;
             margin: 40px auto 30px auto;
             max-width: 640px;
-            line-height: 1.6;
         }
+
         .links a {
             color: #c8e0dd;
             text-decoration: none;
@@ -37,22 +48,378 @@
             transition: opacity 0.4s;
             opacity: 0.4;
         }
+
         .links a:hover {
             opacity: 0.8;
         }
+
+        /* Tutorial styles */
+        .tutorial-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tutorial-nav {
+            background-color: #202020;
+            padding: 10px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+        }
+
+        .tutorial-nav ul {
+            display: block;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tutorial-nav li {
+            margin-bottom: 10px;
+        }
+
+        .tutorial-nav a {
+            color: #c8e0dd;
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            display: block;
+        }
+
+        .tutorial-nav a:hover {
+            opacity: 1;
+        }
+
+        .tutorial-section {
+            margin-bottom: 60px;
+        }
+
+        .tutorial-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .tutorial-section h3 {
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+        }
+
+        .tutorial-content {
+            margin-bottom: 30px;
+        }
+
+        .tutorial-image {
+            max-width: 100%;
+            border-radius: 6px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+
+        .code-block {
+            background-color: #1a1a1a;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: monospace;
+            color: #d4d4d4;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #333;
+            border: none;
+            color: #c8e0dd;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .copy-button:hover {
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tutorial-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .tutorial-section h3 {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
-<body>
-    <div class='logo'>🌖</div>
-    <div class='description'>
-      Lunal is the fastest way to deploy code in a Trusted Execution
-      Environment (TEE) — with zero configuration, full verifiability,
-      and automatic scaling.
-    </div>
-    <div class='links'>
-        <a href='https://github.com/gruns' id='ansgar'>Ansgar</a>
-        <a href='https://github.com/AmeanAsad' id='amean'>Amean</a>
-    </div>
-</body>
-</html>
 
+<body>
+    <div class='header'>
+        <div class='logo'>🌖</div>
+        <div class='description'>
+            Lunal is the fastest way to deploy code in a Trusted Execution
+            Environment (TEE) — with zero configuration, full verifiability,
+            and automatic scaling.
+        </div>
+        <div class='links'>
+            <a href='https://github.com/gruns' id='ansgar'>Ansgar</a>
+            <a href='https://github.com/AmeanAsad' id='amean'>Amean</a>
+        </div>
+    </div>
+
+    <div id="tutorial" class="tutorial-wrapper">
+        <nav class="tutorial-nav">
+            <ul>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#environment">Environment Config</a></li>
+                <li><a href="#deployment">Deployment Flow</a></li>
+                <li><a href="#build-process">Build Process</a></li>
+                <li><a href="#verification">Verification</a></li>
+                <li><a href="#attestation">Attestation</a></li>
+                <li><a href="#monitoring">Monitoring</a></li>
+            </ul>
+        </nav>
+
+        <section id="getting-started" class="tutorial-section">
+            <h2>1. Getting Started</h2>
+
+            <div class="tutorial-content">
+                <h3>Repository Selection</h3>
+                <p>
+                    Lunal makes it easy to deploy your code securely in a Trusted Execution Environment.
+                    Start by selecting your source repository through our simple interface.
+                </p>
+
+                <img src="images/getting_started.png" alt="Repository Selection Interface" class="tutorial-image">
+
+                <p>
+                    You can either connect your GitHub repository or upload your local codebase directly.
+                    Our interface makes browsing and selecting repositories intuitive with filters for language,
+                    last updated time, or stars.
+                </p>
+
+                <h3>Project Configuration</h3>
+                <p>
+                    After selecting your repository, configure your project with a name,
+                    environment type (Development, Staging, or Production), and select the branch you wish to deploy.
+                </p>
+            </div>
+        </section>
+
+        <section id="environment" class="tutorial-section">
+            <h2>2. Environment Configuration</h2>
+
+            <div class="tutorial-content">
+                <h3>TEE Selection</h3>
+                <p>
+                    Select your Trusted Execution Environment hardware option. Currently, we support Intel TDX
+                    with various memory and CPU configurations to match your application needs.
+                </p>
+
+                <img src="images/config.png" alt="TEE Selection Interface" class="tutorial-image">
+
+                <h3>Runtime Configuration</h3>
+                <p>
+                    Choose your runtime environment from our supported languages and frameworks.
+                    Lunal automatically detects frameworks in your repository to suggest the optimal configuration.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-button">Copy</button>
+                    <pre>
+# Example runtime configuration in lunal.config.yaml
+runtime:
+  language: python
+  version: "3.10"
+  framework: flask
+  requirements: requirements.txt</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="deployment" class="tutorial-section">
+            <h2>3. Deployment Flow</h2>
+
+            <div class="tutorial-content">
+                <h3>One-Click Deploy</h3>
+                <p>
+                    Once your environment is configured, deploying is as simple as clicking the "Deploy" button.
+                    Before deployment, you'll see a summary of your configuration and can toggle attestation levels.
+                </p>
+
+                <img src="images/deploy.png" alt="Deployment Interface" class="tutorial-image">
+
+                <h3>Deployment Confirmation</h3>
+                <p>
+                    After successful deployment, you'll receive your deployment URL, attestation verification status,
+                    and performance metrics showing your application's startup time and memory usage.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-button">Copy</button>
+                    <pre>
+# Access your deployed application
+curl https://your-app-name.lunal.dev/health
+
+# Check attestation status
+lunal attestation status --app your-app-name</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="build-process" class="tutorial-section">
+            <h2>4. Build Process</h2>
+
+            <div class="tutorial-content">
+                <h3>Reproducible Builds</h3>
+                <p>
+                    Lunal uses reproducible build pipelines to ensure that the same input code always produces
+                    the same output artifacts. This is crucial for verifying that your deployed code matches what you
+                    intended.
+                </p>
+
+                <img src="images/dashboard.png" alt="Build Process Visualization" class="tutorial-image">
+
+                <h3>Hash Generation</h3>
+                <p>
+                    During the build process, cryptographic hashes are generated for your code and dependencies.
+                    These hashes are used later in the verification process to ensure code integrity.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-button">Copy</button>
+                    <pre>
+# Generate hash locally to verify against deployed version
+lunal build verify --path ./my-project --output hash.txt
+
+# Compare with deployed hash
+lunal verify --hash-file hash.txt --deployment your-app-name</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="verification" class="tutorial-section">
+            <h2>5. Local Build Verification & Signing</h2>
+
+            <div class="tutorial-content">
+                <h3>Developer Signing Process</h3>
+                <p>
+                    For additional security, you can sign your code using your personal or organizational cryptographic
+                    keys.
+                    This creates a verifiable link between you as the developer and the deployed code.
+                </p>
+
+                <img src="placeholder-signing.jpg" alt="Code Signing Process" class="tutorial-image">
+
+                <div class="code-block">
+                    <button class="copy-button">Copy</button>
+                    <pre>
+# Sign your code's hash with your private key
+lunal sign --hash-file hash.txt --key ~/.ssh/id_rsa
+
+# Upload the signature to Lunal
+lunal upload --signature hash.txt.sig --deployment your-app-name</pre>
+                </div>
+
+                <h3>Verification Chain</h3>
+                <p>
+                    Lunal provides a complete end-to-end verification flow that connects your original source code,
+                    your developer signature, the platform build hash, and the running application.
+                </p>
+            </div>
+        </section>
+
+        <section id="attestation" class="tutorial-section">
+            <h2>6. Attestation Mechanics</h2>
+
+            <div class="tutorial-content">
+                <h3>What is Attestation?</h3>
+                <p>
+                    Attestation is the cryptographic proof that your code is running exactly as intended,
+                    in a genuine TEE environment, without tampering or observation.
+                </p>
+
+                <img src="images/attestation.png" alt="Attestation Mechanics" class="tutorial-image">
+
+                <h3>Verification API</h3>
+                <p>
+                    Lunal provides a complete DCAP-based verification infrastructure that runs entirely
+                    within your environment for maximum security and control.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-button">Copy</button>
+                    <pre>
+# Verify attestation via API
+curl https://verify.lunal.com/v1/attestations/{deployment-id}/verify
+
+# Or use our CLI
+lunal attestation verify --deployment your-app-name</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="monitoring" class="tutorial-section">
+            <h2>7. Logging & Performance Monitoring</h2>
+
+            <div class="tutorial-content">
+                <h3>Logs Dashboard</h3>
+                <p>
+                    Monitor your application through our centralized logging system with search
+                    and filter capabilities for quick debugging.
+                </p>
+
+                <img src="images/logs.png" alt="Logs Dashboard" class="tutorial-image">
+
+                <h3>Performance Metrics</h3>
+                <p>
+                    Track your application's performance with real-time resource utilization graphs,
+                    response time metrics, and automatic anomaly detection.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-button">Copy</button>
+                    <pre>
+# Stream logs from your deployment
+lunal logs --follow --deployment your-app-name
+
+# Get performance metrics
+lunal metrics --deployment your-app-name --last 30m</pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Simple script to make the code block copy buttons work
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.nextElementSibling;
+                const textToCopy = codeBlock.textContent;
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Change button text temporarily to indicate success
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
