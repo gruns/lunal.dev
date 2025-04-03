@@ -44,7 +44,6 @@
             color: #c8e0dd;
             text-decoration: none;
             font-size: 1rem;
-            margin: 0 6px;
             transition: opacity 0.4s;
             opacity: 0.4;
         }
@@ -174,8 +173,9 @@
             and automatic scaling.
         </div>
         <div class='links'>
-            <a href='https://github.com/gruns' id='ansgar'>Ansgar</a>
-            <a href='https://github.com/AmeanAsad' id='amean'>Amean</a>
+          <a href='https://github.com/gruns' id='ansgar'>Ansgar</a>,
+          <a href='https://github.com/AmeanAsad' id='amean'>Amean</a>,
+          and the merry band of misfits at Lunal
         </div>
     </div>
 
@@ -196,11 +196,10 @@
 
             <div class="tutorial-content">
                 <p>
-                    Our goal is to make it as simple as possible to deploy your code securely in a Trusted Execution
+                    Lunal's goal is to make it as simple as possible to deploy your code securely in a Trusted Execution
                     Environment.
                     Start by selecting your source repository through a simple interface. You can either connect your
                     GitHub and select a repository or upload your local codebase directly.
-
                 </p>
 
                 <img src="images/getting_started.png" alt="Repository Selection Interface" class="tutorial-image">
@@ -236,8 +235,7 @@
 
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
-                    <pre>
-# Example runtime configuration in lunal.config.yaml
+                    <pre># Example runtime configuration in lunal.config.yaml
 runtime:
   language: python
   version: "3.10"
@@ -283,8 +281,7 @@ runtime:
 
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
-                    <pre>
-# Access your deployed application with a sample API call
+                    <pre># Access your deployed application with a sample API call
 $ curl https://your-app-name.lunal.dev/api/hello
 {"message": "Hello from your secure Luna Lamp application!"}
 
@@ -372,12 +369,12 @@ $ lunal attestation status --app your-app-name
 
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
-                    <pre>
-                # Sign your code's hash with your private key
-                lunal sign --hash-file hash.txt --key ~/.ssh/id_rsa
+                    
+<pre># Sign your code's hash with your private key
+lunal sign --hash-file hash.txt --key ~/.ssh/id_rsa
 
-                # Upload the signature to Lunal
-                lunal upload --signature hash.txt.sig --deployment your-app-name</pre>
+# Upload the signature to Lunal
+lunal upload --signature hash.txt.sig --deployment your-app-name</pre>
                 </div>
 
                 <h3>Attestation Dashboard</h3>
@@ -401,65 +398,61 @@ $ lunal attestation status --app your-app-name
 
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
-                    <pre>
-        # Verify attestation via API
-        curl https://verify.lunal.com/v1/attestations/{deployment-id}/verify
+                    <pre># Verify attestation via API
+curl https://verify.lunal.com/v1/attestations/{deployment-id}/verify
 
-        # Or use our CLI
-        lunal attestation verify --deployment your-app-name</pre>
+# Or use our CLI
+lunal attestation verify --deployment your-app-name</pre>
                 </div>
 
                 <h4>Example API Response</h4>
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
-                    <pre>
-        {
-          "status": "verified",
-          "attestation": {
-            "id": "att_8f93jd82",
-            "timestamp": "2023-09-15T14:32:19Z",
-            "deployment_id": "your-app-name",
-            "build_hash": "sha256:7a9d2e4cdf81b7d240ae091df166164f6589a444c25ce98649c9452f9fcc1234",
-            "measurements": {
-              "mr_enclave": "9a6743fc25ed8c83f48d9d453b5ccf8b6239c41ebeda4c5518e5fe33beb89f23",
-              "mr_signer": "83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e"
-            },
-            "signature_verification": {
-              "developer_id": "dev_29fja92",
-              "signature_valid": true,
-              "key_id": "4f:23:98:71:e4:...:35:0a"
-            },
-            "platform_verification": {
-              "tcb_status": "up_to_date",
-              "qe_identity_status": "valid"
-            }
-          }
-        }</pre>
+                    <pre>{
+  "status": "verified",
+  "attestation": {
+    "id": "att_8f93jd82",
+    "timestamp": "2023-09-15T14:32:19Z",
+    "deployment_id": "your-app-name",
+    "build_hash": "sha256:7a9d2e4cdf81b7d240ae091df166164f6589a444c25ce98649c9452f9fcc1234",
+    "measurements": {
+      "mr_enclave": "9a6743fc25ed8c83f48d9d453b5ccf8b6239c41ebeda4c5518e5fe33beb89f23",
+      "mr_signer": "83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e"
+    },
+    "signature_verification": {
+      "developer_id": "dev_29fja92",
+      "signature_valid": true,
+      "key_id": "4f:23:98:71:e4:...:35:0a"
+    },
+    "platform_verification": {
+      "tcb_status": "up_to_date",
+      "qe_identity_status": "valid"
+    }
+  }
+}</pre>
                 </div>
 
                 <h4>Example CLI Response</h4>
                 <div class="code-block">
                     <button class="copy-button">Copy</button>
-                    <pre>
-        ✅ Attestation verification complete for deployment: your-app-name
+                    <pre>✅ Attestation verification complete for deployment: your-app-name
+Deployment ID:     your-app-name
+Build Hash:        sha256:7a9d2e4cdf81b7d240ae091df166164f6589a444c25ce98649c9452f9fcc1234
+Verification Time: 2023-09-15 14:32:19 UTC
 
-        Deployment ID:     your-app-name
-        Build Hash:        sha256:7a9d2e4cdf81b7d240ae091df166164f6589a444c25ce98649c9452f9fcc1234
-        Verification Time: 2023-09-15 14:32:19 UTC
+TEE Measurements:
+  MR_ENCLAVE:      9a6743fc25ed8c83f48d9d453b5ccf8b6239c41ebeda4c5518e5fe33beb89f23
+  MR_SIGNER:       83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e
 
-        TEE Measurements:
-          MR_ENCLAVE:      9a6743fc25ed8c83f48d9d453b5ccf8b6239c41ebeda4c5518e5fe33beb89f23
-          MR_SIGNER:       83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e
+Developer Signature: VALID ✓
+  Developer:        John Doe (dev_29fja92)
+  Key Fingerprint:  4f:23:98:71:e4:...:35:0a
 
-        Developer Signature: VALID ✓
-          Developer:        John Doe (dev_29fja92)
-          Key Fingerprint:  4f:23:98:71:e4:...:35:0a
+Platform Verification: SECURE ✓
+  TCB Status:       Up to date
+  QE Identity:      Valid
 
-        Platform Verification: SECURE ✓
-          TCB Status:       Up to date
-          QE Identity:      Valid
-
-        The deployment is running in a genuine TEE environment with verified code integrity.</pre>
+The deployment is running in a genuine TEE environment with verified code integrity.</pre>
                 </div>
 
             </div>
@@ -529,3 +522,4 @@ $ lunal attestation status --app your-app-name
 </body>
 
 </html>
+
